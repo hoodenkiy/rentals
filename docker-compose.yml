@@ -1,11 +1,20 @@
 version: '3'
 services:
-  web:
-    build: .
+  rental-manager:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rental-manager
+    restart: always
     stdin_open: true
     tty: true
     ports:
-      - '5173:5173'
+      - '8080:8080'
     volumes:
       - '/app/node_modules'
       - '.:/app'
+    networks:
+          - vue-network
+networks:
+  vue-network:
+    driver: bridge

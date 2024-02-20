@@ -1,6 +1,9 @@
 FROM node:lts-alpine
+RUN npm install -g http-server
 WORKDIR /app
 COPY package.json ./
 RUN  npm install
-EXPOSE 5173
-CMD ["npm", "run", "dev"]
+COPY . .
+# build app for production with minification
+RUN npm run build
+CMD [ "http-server", "dist" ]
